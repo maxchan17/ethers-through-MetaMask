@@ -29,17 +29,32 @@ function App() {
     // protocol that allows Ethers access to make all read-only
     // requests through MetaMask.
     provider = new ethers.BrowserProvider(window.ethereum)
-
+    
     // It also provides an opportunity to request access to write
     // operations, which will be performed by the private key
     // that MetaMask manages for the user.
     signer = await provider.getSigner();
+    const network = await provider.getNetwork();
+    if(network.name !== 'goerli'){
+      alert("Please switch to goerli testnet and then connect again")
     }
-  alert(`Button 1 clicked with value: ${input1}`);
+    else{
+      alert("Connection done ")
+    }
+    console.log(network)
+    }
+  
   };
 
-  const TransferButton =() => {
-  
+  const TransferButton = async() => {
+    const network = await provider.getNetwork();
+    console.log(network)
+    if(network.name !== 'goerli'){
+      alert("Please connnect to the network")
+    }
+    else{
+      alert(`You are going to transfer : ${input1} goerli`);
+    }
   
 
   if(signer!=null){
@@ -54,7 +69,7 @@ function App() {
   console.log("asdaaf")
   
  
-  alert(`Button 2 clicked with value: ${input2}`);
+ 
 
   };
   return (
